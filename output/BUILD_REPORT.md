@@ -6,6 +6,22 @@ Vivid BAD SQUAD), with an embedded keyword lorebook, plus supporting research an
 **Strictly SFW / age-appropriate** (Akito is a high-school minor): friendship, rivalry, bandmate,
 family, and slice-of-life only. English. Canon-first, with clearly-labelled original additions.
 
+## 1b. Format correction (post-review)
+The first pass delivered a SillyTavern **Character Card V2** JSON. Per reviewer feedback (screenshots
+of the JanitorAI form + the *Script Making Guide* PDF), the correct JanitorAI format is now in
+**`output/janitor/`**:
+- **`CHARACTER.md`** — copy-paste fields matching the actual form: General (Title, Chat name, Bio)
+  and Definition (Personality, Scenario, Initial messages ×4, Example dialogs).
+- **`akito_lorebook.js`** — the lorebook as a **sandboxed ES5 JavaScript** "Everything Lorebook"
+  (per the guide): reads `last_message` / `message_count`, appends canon facts to
+  `context.character.scenario` / `.personality`; one fact per category to stay lean; safe
+  space-padded `indexOf` matching; pacing, music-switch and dog-gag triggers. Verified: syntax OK,
+  **0 unsafe constructs** (no arrow funcs / template strings / `.includes` / `.map`…), read-only
+  fields never touched.
+- **`README.md`** — where each field goes in the UI + what the script does.
+
+The `akito.card.json` (V2) is retained only as an optional **Tavern PNG import** alternative.
+
 ## 2. Orchestration: plan vs. reality
 The plan was a 5-wave, 24-subagent fleet (Sonnet for synthesis, Haiku for lookups). I launched
 **16 research subagents in parallel** (Waves 1+2). **A session usage limit (reset 8:10pm UTC)
